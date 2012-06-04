@@ -1,4 +1,4 @@
-Who Is This ?
+Who Is This?
 =============
 
 This is a cute (debatable) little (indeed) application that searches an Active Directory for a user by username and returns the display name.
