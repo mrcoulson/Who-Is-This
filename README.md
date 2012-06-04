@@ -11,8 +11,4 @@ Requirements
 
 Future Revisions
 ----------------
-It would be nice to return more than the user's name.
-
-Copyright
----------
-Copyright 2012 County of Frederick, VA.  
+It would be nice to return more than the user's name. 
