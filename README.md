@@ -9,6 +9,3 @@ Requirements
 * The System.DirectoryServices namespace (not usually included by default in Visual Studio projects)
 * Access to an Active Directory domain controller
 
-Future Revisions
-----------------
-It would be nice to return more than the user's name. 

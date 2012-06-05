@@ -1,0 +1,11 @@
+﻿h1 {
+    font-family: Arial, Helvetica, Sans-Serif;
+}
+
+label, p {
+    font: normal normal 400 1em/1.5em Georgia, Serif;
+}
+
+input, label {
+    margin: .25em;
+}

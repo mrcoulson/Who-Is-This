@@ -17,10 +17,11 @@ namespace WhoIsThis
 
         protected void btnFind_Click(object sender, EventArgs e)
         {
+
             string strUser = Server.HtmlEncode(txtUser.Text.Trim());
             if (strUser.Length > 0)
             {
-                DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://url.for.your.organization:port/DC=whatever", "user", "pass"));
+                DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://your.url:port/DC=your,DC=url", "user", "pass"));
                 search.SearchScope = SearchScope.Subtree;
                 search.Filter = "(SAMAccountName=" + strUser + ")";
                 SearchResultCollection result = search.FindAll();
@@ -30,9 +31,25 @@ namespace WhoIsThis
                 {
                     foreach (SearchResult res in result)
                     {
-                        string strRetrievedFullName = res.Properties["displayname"][0].ToString();
-                        string strNameLength = strRetrievedFullName.Length.ToString();
-                        litAnswer.Text = "The user's name is " + strRetrievedFullName + ".";
+                        try
+                        {
+                            string strRetrievedFullName = res.Properties["displayname"][0].ToString();
+                            string strNameLength = strRetrievedFullName.Length.ToString();
+                            litAnswer.Text = "The user's name is " + strRetrievedFullName + ".";
+                        }
+                        catch
+                        {
+                            litAnswer.Text = "The user's full name was not found.";
+                        }
+                        try
+                        {
+                            string strDept = res.Properties["physicalDeliveryOfficeName"][0].ToString();
+                            litAnswer.Text += "<br />The user's department is " + strDept + ".";
+                        }
+                        catch (Exception ex)
+                        {
+                            litAnswer.Text += "<br />The user's department was not found.";
+                        }
                     }
                 }
                 else if (count > 1)
@@ -41,7 +58,7 @@ namespace WhoIsThis
                 }
                 else
                 {
-                    litAnswer.Text = "The search for \"" + strUser + "\" returned no results.  Sorry.";
+                    litAnswer.Text = "The search for \"" + strUser + "\" returned no results.  Check the spelling and try again.";
                 }
             }
             else

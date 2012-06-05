@@ -6,21 +6,19 @@
 <head runat="server">
     <meta charset="utf-8">
     <title>Who Is This?</title>
+    <link href="StyleSheet1.css" rel="stylesheet" />
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-        <h1>Who Is This?</h1>
-        <p>
-            <label for="txtUser">AD username:</label>
-            <br />
-            <asp:TextBox ID="txtUser" runat="server" />
-            <br />
-            <asp:Button ID="btnFind" runat="server" Text="Find" onclick="btnFind_Click" />
-            <br />
-            <asp:Literal ID="litAnswer" runat="server" Text="The answer will go here." />
-        </p>
-    </div>
+    <h1>Who Is This?</h1>
+    <form id="form1" runat="server" defaultbutton="btnFind">
+        <label for="txtUser">AD username:</label>
+        <br />
+        <asp:TextBox ID="txtUser" runat="server" />
+        <br />
+        <asp:Button ID="btnFind" runat="server" Text="Find" onclick="btnFind_Click" />
     </form>
+    <p>
+        <asp:Literal ID="litAnswer" runat="server" />
+    </p>
 </body>
 </html>
