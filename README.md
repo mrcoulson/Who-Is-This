@@ -1,7 +1,7 @@
 Who Is This?
 =============
 
-This is a cute (debatable) little (indeed) application that searches an Active Directory for a user by username and returns the display name.
+This is a cute (debatable) little (indeed) application that searches an Active Directory for a user by username and returns the display name and department.
 
 Requirements
 ------------
