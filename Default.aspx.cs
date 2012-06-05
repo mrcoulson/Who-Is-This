@@ -12,7 +12,6 @@ namespace WhoIsThis
 
         protected void btnFind_Click(object sender, EventArgs e)
         {
-
             string strUser = Server.HtmlEncode(txtUser.Text.Trim());
             if (strUser.Length > 0)
             {
