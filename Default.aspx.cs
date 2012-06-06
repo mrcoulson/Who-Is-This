@@ -28,10 +28,9 @@ namespace WhoIsThis
                         try
                         {
                             string strRetrievedFullName = res.Properties["displayname"][0].ToString();
-                            string strNameLength = strRetrievedFullName.Length.ToString();
                             litAnswer.Text = "The user's name is " + strRetrievedFullName + ".";
                         }
-                        catch
+                        catch (Exception exName)
                         {
                             litAnswer.Text = "The user's full name was not found.";
                         }
@@ -40,9 +39,29 @@ namespace WhoIsThis
                             string strDept = res.Properties["physicalDeliveryOfficeName"][0].ToString();
                             litAnswer.Text += "<br />The user's department is " + strDept + ".";
                         }
-                        catch (Exception ex)
+                        catch (Exception exDept)
                         {
                             litAnswer.Text += "<br />The user's department was not found.";
+                        }
+                        try
+                        {
+                            string strUserCreated = DateTime.Parse(res.Properties["whenCreated"][0].ToString()).ToString("g");
+                            litAnswer.Text += "<br />The user was created on " + strUserCreated + ".";
+                        }
+                        catch (Exception exCreated)
+                        {
+                            litAnswer.Text += "<br />The user's creation date was not found.";
+                        }
+                        try
+                        {
+                            long lngPwdSet = long.Parse(res.Properties["pwdLastSet"][0].ToString());
+                            DateTime dtPwdSet = new DateTime(1601, 01, 02).AddTicks(lngPwdSet);
+                            string strPwdSet = dtPwdSet.ToString();
+                            litAnswer.Text += "<br />The user's password was last changed on " + strPwdSet + ".";
+                        }
+                        catch (Exception exPwdSet)
+                        {
+                            litAnswer.Text += "<br />The date of the user's last password change was not found.";
                         }
                     }
                 }
