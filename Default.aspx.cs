@@ -72,17 +72,6 @@ namespace WhoIsThis
                         {
                             litAnswer.Text += "<br />The date of the user's last password change was not found.";
                         }
-                        try
-                        {
-                            long lngBadPasswordTime = long.Parse(res.Properties["badPasswordTime"][0].ToString());
-                            DateTime dtBadPasswordTime = new DateTime(1601, 01, 01).AddTicks(lngBadPasswordTime).ToLocalTime();
-                            string strBadPasswordTime = dtBadPasswordTime.ToString("M/d/yyyy a&#116; h:mm:ss tt");
-                            litAnswer.Text += "<br />The user last entered a bad password on " + strBadPasswordTime + ".";
-                        }
-                        catch (Exception exBadPasswordTime)
-                        {
-                            litAnswer.Text += "<br />No record of a bad password was found.";
-                        }
                     }
                     litAnswer.Text += "<br /><br />For the user's contact information, visit the <a href=\"http://link.to.intranet/directory.aspx\">intranet directory</a>.";
                 }
