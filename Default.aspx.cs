@@ -45,7 +45,7 @@ namespace WhoIsThis
                         }
                         try
                         {
-                            string strUserCreated = DateTime.Parse(res.Properties["whenCreated"][0].ToString()).ToString("g");
+                            string strUserCreated = DateTime.Parse(res.Properties["whenCreated"][0].ToString()).ToLocalTime().ToString("M/d/yyyy a&#116; h:mm:ss tt");
                             litAnswer.Text += "<br />The user was created on " + strUserCreated + ".";
                         }
                         catch (Exception exCreated)
@@ -55,8 +55,8 @@ namespace WhoIsThis
                         try
                         {
                             long lngPwdSet = long.Parse(res.Properties["pwdLastSet"][0].ToString());
-                            DateTime dtPwdSet = new DateTime(1601, 01, 02).AddTicks(lngPwdSet);
-                            string strPwdSet = dtPwdSet.ToString();
+                            DateTime dtPwdSet = new DateTime(1601, 01, 01).AddTicks(lngPwdSet).ToLocalTime();
+                            string strPwdSet = dtPwdSet.ToString("M/d/yyyy a&#116; h:mm:ss tt");
                             litAnswer.Text += "<br />The user's password was last changed on " + strPwdSet + ".";
                         }
                         catch (Exception exPwdSet)
