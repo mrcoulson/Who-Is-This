@@ -1,5 +1,3 @@
-The following license does not apply to the jQuery library.
-
 COPYRIGHT AND LICENSING NOTICE
 ==============================
 
