@@ -1,21 +1,37 @@
 ﻿using System;
 using System.DirectoryServices;
+using System.Configuration;
 
 namespace WhoIsThis
 {
     public partial class Default : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnFind_Click(object sender, EventArgs e)
         {
-            string strUser = Server.HtmlEncode(txtUser.Text.Trim());
+            try
+            {
+                findUser(Server.HtmlEncode(txtUser.Text.Trim()));
+            }
+            catch (DirectoryServicesCOMException exLogon)
+            {
+                litAnswer.Text = "<span class=\"error\">Error.  Your AD credentials may be incorrect.</span>";
+            }
+            catch (Exception ex)
+            {
+                litAnswer.Text = "<span class=\"error\">Error.  Check your server's event viewer.</span>";
+            }
+        }
+
+        void findUser(string strUser)
+        {
             if (strUser.Length > 0)
             {
-                DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://your.url:port/DC=your,DC=url", "user", "pass"));
+                string strAdUrl = ConfigurationManager.AppSettings["adUrl"];
+                string strAdUser = ConfigurationManager.AppSettings["adUser"];
+                string strAdPass = ConfigurationManager.AppSettings["adPass"];
+                string strIntranet = ConfigurationManager.AppSettings["intranet"];
+
+                DirectorySearcher search = new DirectorySearcher(new DirectoryEntry(strAdUrl, strAdUser, strAdPass));
                 search.SearchScope = SearchScope.Subtree;
                 search.Filter = "(SAMAccountName=" + strUser + ")";
                 SearchResultCollection result = search.FindAll();
@@ -73,7 +89,7 @@ namespace WhoIsThis
                             litAnswer.Text += "<br />The date of the user's last password change was not found.";
                         }
                     }
-                    litAnswer.Text += "<br /><br />For the user's contact information, visit the <a href=\"http://link.to.intranet/directory.aspx\">intranet directory</a>.";
+                    litAnswer.Text += "<br /><br />For the user's contact information, visit the <a href=\"" + strIntranet + "\">intranet directory</a>.";
                 }
                 else if (count > 1)
                 {
