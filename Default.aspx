@@ -17,8 +17,6 @@
         <br />
         <asp:Button ID="btnFind" runat="server" Text="Find" onclick="btnFind_Click" />
     </form>
-    <p>
-        <asp:Literal ID="litAnswer" runat="server" />
-    </p>
+    <asp:Literal ID="litAnswer" runat="server" />
 </body>
 </html>
