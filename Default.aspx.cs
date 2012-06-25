@@ -44,11 +44,11 @@ namespace WhoIsThis
                         try
                         {
                             string strRetrievedFullName = res.Properties["displayname"][0].ToString();
-                            litAnswer.Text = "The user's name is " + strRetrievedFullName + ".";
+                            litAnswer.Text = "<p>The user's name is " + strRetrievedFullName + ".";
                         }
                         catch (Exception exName)
                         {
-                            litAnswer.Text = "The user's full name was not found.";
+                            litAnswer.Text = "<p>The user's full name was not found.";
                         }
                         try
                         {
@@ -82,11 +82,36 @@ namespace WhoIsThis
                             long lngPwdSet = long.Parse(res.Properties["pwdLastSet"][0].ToString());
                             DateTime dtPwdSet = new DateTime(1601, 01, 01).AddTicks(lngPwdSet).ToLocalTime();
                             string strPwdSet = dtPwdSet.ToString("M/d/yyyy a&#116; h:mm:ss tt");
-                            litAnswer.Text += "<br />The user's password was last changed on " + strPwdSet + ".";
+                            litAnswer.Text += "<br />The user's password was last changed on " + strPwdSet + ".</p>";
                         }
                         catch (Exception exPwdSet)
                         {
-                            litAnswer.Text += "<br />The date of the user's last password change was not found.";
+                            litAnswer.Text += "<br />The date of the user's last password change was not found.</p>";
+                        }
+                        try
+                        {
+                            litAnswer.Text += "<p>Group membership:</p><ul>";
+                            foreach (string strProperty in res.Properties["memberOf"])
+                            {
+                                string strMemberOf = strProperty;
+                                int intCommaIndex = strMemberOf.IndexOf(",");
+                                if (intCommaIndex > 0)
+                                {
+                                    strMemberOf = strMemberOf.Substring(0, intCommaIndex);
+                                }
+                                int intEqualIndex = strMemberOf.IndexOf("=") + 1;
+                                if (intEqualIndex > 0)
+                                {
+                                    strMemberOf = strMemberOf.Substring(intEqualIndex);
+                                }
+                                litAnswer.Text += "<li>" + strMemberOf + "</li>";
+                                
+                            }
+                            litAnswer.Text += "</ul>";
+                        }
+                        catch (Exception exMemberOf)
+                        {
+                            litAnswer.Text += "<p>The user's group membership was not found.</p>";
                         }
                     }
                     litAnswer.Text += "<br /><br />For the user's contact information, visit the <a href=\"" + strIntranet + "\">intranet directory</a>.";
