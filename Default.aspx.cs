@@ -105,7 +105,6 @@ namespace WhoIsThis
                                     strMemberOf = strMemberOf.Substring(intEqualIndex);
                                 }
                                 litAnswer.Text += "<li>" + strMemberOf + "</li>";
-                                
                             }
                             litAnswer.Text += "</ul>";
                         }
