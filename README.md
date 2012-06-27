@@ -6,7 +6,9 @@ This is a cute (debatable) little (indeed) application that searches an Active D
 Setup
 -----
 
-Basically, just set your AD credentials in the Web.config and set the application in IIS.
+Basically, just set your AD info and intranet link in the `<appSettings>` element in the Web.config and set the application in IIS.  You may want to encrypt your `<appSettings>` like this:
+
+>`aspnet_regiis -pe "appSettings" -app "/path/to/WhoIsThis" -site "siteID"`
 
 The AD properties used in this application are ones that we use in our work environment.  For example, your environment may not use physicalDeliveryOfficeName for department.  This sort of application could be taken much further in an environment where AD stores user contact information.  In our work environment, this is not the case yet.  Also, the link to the intranet directory may not apply for your organization.
 
