@@ -14,11 +14,11 @@ namespace WhoIsThis
             }
             catch (DirectoryServicesCOMException exLogon)
             {
-                litAnswer.Text = "<span class=\"error\">Error.  Your AD credentials may be incorrect.</span>";
+                litAnswer.Text = "<p class=\"error\">Error.  Your AD credentials may be incorrect.</p>";
             }
             catch (Exception ex)
             {
-                litAnswer.Text = "<span class=\"error\">Error.  Check your server's event viewer.</span>";
+                litAnswer.Text = "<p class=\"error\">Error.  Check your server's event viewer.</p>";
             }
         }
 

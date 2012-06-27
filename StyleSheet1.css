@@ -9,3 +9,7 @@ label, p {
 input, label {
     margin: .25em;
 }
+
+p.error {
+    color: #f00;
+}
