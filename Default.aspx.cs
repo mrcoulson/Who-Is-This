@@ -91,20 +91,27 @@ namespace WhoIsThis
                         try
                         {
                             litAnswer.Text += "<p>Group membership:</p><ul>";
-                            foreach (string strProperty in res.Properties["memberOf"])
+                            if (res.Properties["memberOf"].Count > 0)
                             {
-                                string strMemberOf = strProperty;
-                                int intCommaIndex = strMemberOf.IndexOf(",");
-                                if (intCommaIndex > 0)
+                                foreach (string strProperty in res.Properties["memberOf"])
                                 {
-                                    strMemberOf = strMemberOf.Substring(0, intCommaIndex);
+                                    string strMemberOf = strProperty;
+                                    int intCommaIndex = strMemberOf.IndexOf(",");
+                                    if (intCommaIndex > 0)
+                                    {
+                                        strMemberOf = strMemberOf.Substring(0, intCommaIndex);
+                                    }
+                                    int intEqualIndex = strMemberOf.IndexOf("=") + 1;
+                                    if (intEqualIndex > 0)
+                                    {
+                                        strMemberOf = strMemberOf.Substring(intEqualIndex);
+                                    }
+                                    litAnswer.Text += "<li>" + strMemberOf + "</li>";
                                 }
-                                int intEqualIndex = strMemberOf.IndexOf("=") + 1;
-                                if (intEqualIndex > 0)
-                                {
-                                    strMemberOf = strMemberOf.Substring(intEqualIndex);
-                                }
-                                litAnswer.Text += "<li>" + strMemberOf + "</li>";
+                            }
+                            else
+                            {
+                                litAnswer.Text += "<li>The user does not seem to be a member of any groups.</li>";
                             }
                             litAnswer.Text += "</ul>";
                         }
@@ -113,15 +120,15 @@ namespace WhoIsThis
                             litAnswer.Text += "<p>The user's group membership was not found.</p>";
                         }
                     }
-                    litAnswer.Text += "<br /><br />For the user's contact information, visit the <a href=\"" + strIntranet + "\">intranet directory</a>.";
+                    litAnswer.Text += "<p>For the user's contact information, visit the <a href=\"" + strIntranet + "\">intranet directory</a>.</p>";
                 }
                 else if (count > 1)
                 {
-                    litAnswer.Text = "Something strange happened.  I got more than one result.";
+                    litAnswer.Text = "<p>Something strange happened.  I got more than one result.</p>";
                 }
                 else
                 {
-                    litAnswer.Text = "The search for \"" + strUser + "\" returned no results.  Check the spelling and try again.";
+                    litAnswer.Text = "<p>The search for \"" + strUser + "\" returned no results.  Check the spelling and try again.</p>";
                 }
             }
             else
